@@ -16,7 +16,7 @@ clients = [
 ]
 
 
-def create_client(client_name):
+def create_client(client):
     global clients   #you add the global clients so you can acces the clients global variable
 
     if client not in clients:
@@ -30,29 +30,28 @@ def list_clients():
         print(f'{idx} | {client["name"]} | {client["company"]} | {client["email"]} | {client["position"]}')
         
 
-def update_client(client_name, updated_client_name):
+def update_client(client_id, updated_client):
     global clients
 
-    if client_name in clients:
-        index = clients.index(client_name)
-        clients[index] = updated_client_name
+    if len(clients) - 1 >= client_id:
+        clients[client_id] = updated_client
     else:
-        print('Client is not in clients list')
+        print('Client not in client\'s list')
 
 
-def delete_client(client_name):
+def delete_client(client_id):
     global clients
 
-    if client_name in clients:
-        clients.remove(client_name)
-    else:
-        print('Client is not in clients list')
+    for idx, client in enumerate(clients):
+       if idx == client_id:
+           del clients[idx]
+           break
 
 
 def search_client(client_name):
 
     for client in clients:
-        if client != client_name:
+        if client['name'] != client_name:
             continue
         else:
             return True
@@ -94,6 +93,17 @@ def _get_client_name():
     return client_name
 
 
+def _get_client_from_user():
+    client = {
+        'name': _get_client_field('name'),
+        'company': _get_client_field('company'),
+        'email': _get_client_field('email'),
+        'position': _get_client_field('position'),
+    }
+    
+    return client
+
+
 if __name__ == '__main__':
     _print_welcome()
 
@@ -110,13 +120,14 @@ if __name__ == '__main__':
         create_client(client)
         list_clients()
     elif command == 'D':
-        client_name = _get_client_name()
-        delete_client(client_name)
+        client_id = int(_get_client_field('id'))
+
+        delete_client(client_id)
         list_clients()
     elif command == 'U':
-        client_name = _get_client_name()
-        updated_client_name = input('What is the updated client name')
-        update_client(client_name, updated_client_name)
+        client_id = int(_get_client_field('id'))
+        updated_client = _get_client_from_user()
+        update_client(client_id, updated_client)
         list_clients()
     elif command == 'S':
         client_name = _get_client_name()
