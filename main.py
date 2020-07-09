@@ -19,8 +19,8 @@ def _save_clients_to_storage():
         writer = csv.DictWriter(f, fieldnames=CLIENT_SCHEMA)
         writer.writerows(clients)
 
-        os.remove(CLIENT_TABLE)
-        os.rename(tmp_table_name, CLIENT_TABLE)
+    os.remove(CLIENT_TABLE)
+    os.rename(tmp_table_name, CLIENT_TABLE)
 
 def create_client(client):
     global clients   #you add the global clients so you can acces the clients global variable
