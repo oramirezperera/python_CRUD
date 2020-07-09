@@ -131,12 +131,10 @@ if __name__ == '__main__':
         client_id = int(_get_client_field('id'))
 
         delete_client(client_id)
-        list_clients()
     elif command == 'U':
         client_id = int(_get_client_field('id'))
         updated_client = _get_client_from_user()
         update_client(client_id, updated_client)
-        list_clients()
     elif command == 'S':
         client_name = _get_client_name()
         found = search_client(client_name)
