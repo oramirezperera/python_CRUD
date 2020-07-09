@@ -1,20 +1,26 @@
 import sys
+import csv
+import os
+CLIENT_TABLE = '.clients.csv'
+CLIENT_SCHEMA = ['name', 'company', 'email', 'position']
+clients = []
 
-clients = [
-    {
-        'name': 'Pablo',
-        'company': 'Google',
-        'email': 'pablo@google.com',
-        'position': 'Software Engineer',
-    },
-    {
-        'name': 'Ricardo',
-        'company': 'Facebook',
-        'email': 'ricardo@facebook.com',
-        'position': 'Data Engineer',
-    }
-]
+def _initialize_clients_from_storage():
+    with open(CLIENT_TABLE, mode='r') as f:
+        reader = csv.DictReader(f, fieldnames=CLIENT_SCHEMA)
 
+        for row in reader:
+            clients.append(row)
+
+
+def _save_clients_to_storage():
+    tmp_table_name = f'{CLIENT_TABLE}.tmp'
+    with open(tmp_table_name, mode='w') as f:
+        writer = csv.DictWriter(f, fieldnames=CLIENT_SCHEMA)
+        writer.writerows(clients)
+
+        os.remove(CLIENT_TABLE)
+        os.rename(tmp_table_name, CLIENT_TABLE)
 
 def create_client(client):
     global clients   #you add the global clients so you can acces the clients global variable
@@ -105,6 +111,8 @@ def _get_client_from_user():
 
 
 if __name__ == '__main__':
+
+    _initialize_clients_from_storage()
     _print_welcome()
 
     command = input()
@@ -141,3 +149,6 @@ if __name__ == '__main__':
         list_clients()
     else:
         print('invalid command')
+
+
+    _save_clients_to_storage()
