@@ -1,0 +1,7 @@
+*.swp
+*.csv
+.vscode/
+venv/
+
+env/
+pv.egg-info/
