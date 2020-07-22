@@ -3,10 +3,10 @@ import os
 
 from clients.models import Client
 
-class ClientService:
+class ClientService():
 
     def __init__(self, table_name):
-        self. table_name = table_name
+        self.table_name = table_name
 
     def create_client(self, client):
         with open(self.table_name, mode='a') as f:
@@ -24,7 +24,7 @@ class ClientService:
 
         updated_clients = []
         for client in clients:
-            if client['uid'] == updated_client.uid:
+            if client["uid"] == updated_client.uid:
                 updated_clients.append(updated_client.to_dict())
             else:
                 updated_clients.append(client)
@@ -33,8 +33,8 @@ class ClientService:
 
     def _save_to_disk(self, updated_clients):
         tmp_table_name = self.table_name + '.tmp'
-        with open(tmp_table_name, mode=w) as f:
-            writer = csv.DictWriter(f, fieldnames=ClientModel.schema())
+        with open(tmp_table_name, mode='w') as f:
+            writer = csv.DictWriter(f, fieldnames=Client.schema())
             writer.writerows(updated_clients)
 
             os.remove(self.table_name)
