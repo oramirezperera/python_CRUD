@@ -40,3 +40,10 @@ class ClientService():
             os.remove(self.table_name)
             os.rename(tmp_table_name, self.table_name)
 
+
+    def delete_client(self, client_to_delete):
+        clients_list = self.list_clients()
+
+        clients_list.remove(client_to_delete[0])
+
+        self._save_to_disk(clients_list)
