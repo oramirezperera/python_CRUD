@@ -17,4 +17,4 @@ Uses OOP in Python, variable scopes, functions, list, dictionaries, tuples and s
 
 It's an excellent exercise uses git and github as a version control and repository, also uses all the basic Python tools for practicing, 
 
-Hope you enjoy using it, and playing around with this little program.
+Hope you enjoy using it, and playing around with this little program as much as I enjoyed doing it.
